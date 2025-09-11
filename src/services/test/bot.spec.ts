@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { EchoBot } from "../bot";
+import { EchoBot } from "../bot/bot";
 import { ActivityTypes, ConversationState, MemoryStorage, TeamsInfo, TurnContext, UserState } from "botbuilder";
 
 

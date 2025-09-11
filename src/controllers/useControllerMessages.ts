@@ -1,5 +1,5 @@
 import { BlobStateFactory } from '../data/blobstorage'
-import { EchoBot } from '../services/bot'
+import { EchoBot } from '../services/bot/bot'
 import { adapter } from '../services/botbuilder'
 import { env } from '../services/env'
 

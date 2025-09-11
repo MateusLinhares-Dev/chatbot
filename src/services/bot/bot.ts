@@ -1,6 +1,7 @@
 import { ActivityHandler, ConversationState, TurnContext, UserState, StatePropertyAccessor } from 'botbuilder';
-import { TeamsInfo } from 'botbuilder';
-import { userStateInfo } from '../dto/interfaceInfoUserState';
+import { userStateInfo } from '../../dto/interfaceInfoUserState';
+import { UserService } from '../user/userService';
+
 
 export class EchoBot extends ActivityHandler {
     private UserState: UserState;
@@ -12,15 +13,15 @@ export class EchoBot extends ActivityHandler {
         this.UserState = UserState;
         this.ConversationState = ConversationState;
         this.userProfileAccessor = this.UserState.createProperty<userStateInfo>('UserProfile');
-
+        
         this.onMessage(async (context, next) => {
             let profile = await this.userProfileAccessor.get(context, {id: context.activity.from.id })
-
+            
             try {
-                console.log(context.activity.from.id)
-                const member = await TeamsInfo.getMember(context, context.activity.from.id)
-                profile.email = member.email
-                profile.name = member.name
+                const user = await UserService.getValidateUser(context);
+
+                profile.email = user.email;
+                profile.name = user.name;
             } catch (err) {
                 throw new Error('Este usuário não possui e-mail.')
             }
