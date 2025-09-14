@@ -3,7 +3,7 @@ import {
     ConfigurationServiceClientCredentialFactory,
     createBotFrameworkAuthenticationFromConfiguration
 } from 'botbuilder';
-import { env } from './env'
+import { env } from '../env'
 
 const credentialsFactory = new ConfigurationServiceClientCredentialFactory({
     MicrosoftAppId: env.MicrosoftAppId,

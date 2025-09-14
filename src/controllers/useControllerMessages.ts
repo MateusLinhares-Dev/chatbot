@@ -1,6 +1,6 @@
 import { BlobStateFactory } from '../data/blobstorage'
 import { EchoBot } from '../services/bot/bot'
-import { adapter } from '../services/botbuilder'
+import { adapter } from '../services/bot/botbuilder'
 import { env } from '../services/env'
 
 const storage = new BlobStateFactory(env.BlobConnectionString, env.BlobContainerName)

@@ -52,8 +52,10 @@ describe("Echobot", () => {
     })
 
     it('If name or email not exist, return Error: "Este usuário não possui e-mail"', async () => {
-        vi.spyOn(TeamsInfo, "getMember").mockRejectedValue(new Error('Not e-mail'))
+        vi.spyOn(TeamsInfo, "getMember").mockRejectedValue(
+            new Error('Este usuário não possui e-mail')
+        )
 
-        await expect(bot.run(context)).rejects.toThrow('Este usuário não possui e-mail.')
+        await expect(bot.run(context)).rejects.toThrow('Este usuário não possui e-mail');
     })
 })

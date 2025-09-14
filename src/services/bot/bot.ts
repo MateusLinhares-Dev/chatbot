@@ -1,12 +1,14 @@
 import { ActivityHandler, ConversationState, TurnContext, UserState, StatePropertyAccessor } from 'botbuilder';
 import { userStateInfo } from '../../dto/interfaceInfoUserState';
-import { UserService } from '../user/userService';
+import { DispatcherHandlerUser } from '../user/dispatcherUser';
+import { DispatchController } from '../user/dispatch';
 
 
 export class EchoBot extends ActivityHandler {
     private UserState: UserState;
     private ConversationState: ConversationState;
     private userProfileAccessor: StatePropertyAccessor<userStateInfo>;
+    private dispatcher: DispatchController;
 
     constructor(UserState: UserState, ConversationState: ConversationState) {
         super();
@@ -14,20 +16,18 @@ export class EchoBot extends ActivityHandler {
         this.ConversationState = ConversationState;
         this.userProfileAccessor = this.UserState.createProperty<userStateInfo>('UserProfile');
         
-        this.onMessage(async (context, next) => {
-            let profile = await this.userProfileAccessor.get(context, {id: context.activity.from.id })
-            
-            try {
-                const user = await UserService.getValidateUser(context);
+        this.dispatcher = new DispatchController()
+        this.dispatcher.registerHandler('user', new DispatcherHandlerUser(this.userProfileAccessor));
 
-                profile.email = user.email;
-                profile.name = user.name;
-            } catch (err) {
-                throw new Error('Este usuário não possui e-mail.')
+        this.onMessage(async (context, next) => {
+            try {
+                const profile = await this.dispatcher.getHandler(context, 'user');
+                await context.sendActivity(`Olá ${profile.name}`);
+            } catch (err: any) {
+                throw new Error(err.message);
             }
 
-            await this.userProfileAccessor.set(context, profile);
-            await context.sendActivity(`Olá ${profile.name}`)
+
             await next();
         });
     }

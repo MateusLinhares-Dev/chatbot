@@ -1,6 +1,6 @@
 import { EchoBot } from '../services/bot/bot'
 import { INodeSocket } from 'botframework-streaming';
-import { streamingAdapter } from '../services/botbuilder'
+import { streamingAdapter } from '../services/bot/botbuilder'
 import { BlobStateFactory } from '../data/blobstorage';
 import { env } from '../services/env';
 

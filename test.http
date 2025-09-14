@@ -1,0 +1,11 @@
+@baseurl = https://c5strhrp-3978.brs.devtunnels.ms
+
+
+### Post NotifyFollowUpStart
+POST {{baseurl}}/api/notifyFollowUpStart
+Content-Type: application/json
+
+{
+    "name": "Mateus epifanio linhares",
+    "email": "mlinhares@softexpert.com"
+}
