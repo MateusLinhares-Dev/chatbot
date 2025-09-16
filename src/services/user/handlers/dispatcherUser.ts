@@ -1,7 +1,7 @@
 import { StatePropertyAccessor, TurnContext } from "botbuilder";
-import { DispatchFactoryHandlerUser } from "./dispatchFactoryUser";
-import { userStateInfo } from "../../dto/interfaceInfoUserState";
-import { UserService } from "./userService";
+import { DispatchFactoryHandlerUser } from "../dispatchFactoryUser";
+import { userStateInfo } from "../../../dto/interfaceInfoUserState";
+import { UserService } from "../userService";
 
 export class DispatcherHandlerUser extends DispatchFactoryHandlerUser {
     constructor(private userProfileAccessor: StatePropertyAccessor<userStateInfo>) {super();}

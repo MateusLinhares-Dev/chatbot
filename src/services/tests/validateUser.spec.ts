@@ -1,6 +1,7 @@
 import { expect, test, vi } from "vitest";
 import { ActivityTypes, TeamsInfo, TurnContext } from "botbuilder";
 import { UserService } from "../user/userService";
+import { parse } from "dotenv";
 
 
 test('validate if user contain register with blob, if contain return info then user', async () => {

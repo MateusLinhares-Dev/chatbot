@@ -1,6 +1,6 @@
 import { ActivityHandler, ConversationState, TurnContext, UserState, StatePropertyAccessor } from 'botbuilder';
 import { userStateInfo } from '../../dto/interfaceInfoUserState';
-import { DispatcherHandlerUser } from '../user/dispatcherUser';
+import { DispatcherHandlerUser } from '../user/handlers/dispatcherUser';
 import { DispatchController } from '../user/dispatch';
 
 

@@ -1,8 +1,23 @@
-import { interfaceInfoReqNotify } from "../../dto/interfaceInfoRequestNotify";
+import { defaultInterfaceInfoReqNotify } from "../../dto/validation/zodInfoReqNotify";
 
-export function normalizeRequestBody(req: interfaceInfoReqNotify): interfaceInfoReqNotify {
-    const name  = req.name?.trim().toLowerCase();
-    const email = req.email.trim().toLowerCase();
+function convertTimeStampForDate(timestamp: string): string {
+  const date = new Date(Number(timestamp));
+  console.log(date)
+  if (isNaN(date.getTime())) {
+    throw new Error(`Timestamp inválido: ${timestamp}`);
+  }
 
-    return { name, email };
+  return date.toISOString();
+}
+
+export function normalizeRequestBody(
+  req: defaultInterfaceInfoReqNotify
+): defaultInterfaceInfoReqNotify {
+  return {
+    ...req,
+    initiation: convertTimeStampForDate(req.initiation),
+    planning: convertTimeStampForDate(req.planning),
+    name: req.name.trim().toLowerCase().replace(/\s+/g, " "),
+    email: req.email.trim().toLowerCase(),
+  };
 }

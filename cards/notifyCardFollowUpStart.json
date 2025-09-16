@@ -1,0 +1,75 @@
+{
+    "type": "AdaptiveCard",
+    "body": [
+        {
+            "type": "TextBlock",
+            "size": "Medium",
+            "weight": "Bolder",
+            "text": "🔔 Atencion !!  Seguimiento de Solicitud de Cambio"
+        },
+        {
+            "type": "ColumnSet",
+            "columns": [
+                {
+                    "type": "Column",
+                    "items": [
+                        {
+                            "type": "Image",
+                            "style": "Person",
+                            "url": "https://banorte.softexpert.app/se/v44096/ui/desktop/lite/resources/images/products32x32/product-104.png",
+                            "altText": "${creator.name}",
+                            "size": "Small"
+                        }
+                    ],
+                    "width": "auto"
+                },
+                {
+                    "type": "Column",
+                    "items": [
+                        {
+                            "type": "TextBlock",
+                            "weight": "Bolder",
+                            "text": "Número Solicitud:@{variables('numeroSolicitud')}",
+                            "wrap": true
+                        },
+                        {
+                            "type": "TextBlock",
+                            "spacing": "None",
+                            "text": "Fecha de Inicio: @{variables('fechaInializacion')}",
+                            "isSubtle": true,
+                            "wrap": true
+                        }
+                    ],
+                    "width": "stretch"
+                }
+            ],
+            "horizontalAlignment": "Left",
+            "spacing": "None"
+        },
+        {
+            "type": "TextBlock",
+            "text": "Descripción del Cambio",
+            "wrap": true,
+            "weight": "Bolder"
+        },
+        {
+            "type": "TextBlock",
+            "text": "@{variables('cambioDescripcion')}",
+            "wrap": true
+        },
+        {
+            "type": "TextBlock",
+            "text": "El cambio identificado con @{variables('numeroSolicitud')} asignada a usted se encuentra en Fecha de Inicio de Planificada.\nRecuerde la fecha de finalización del cambio es  @{variables('fechaFinalizacion')} .\n",
+            "wrap": true
+        },
+        {
+            "type": "TextBlock",
+            "text": "Este es un recordatorio para iniciar a ejecutar las actividades pertinentes.",
+            "wrap": true,
+            "size": "Large",
+            "weight": "Bolder"
+        }
+    ],
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.6"
+}

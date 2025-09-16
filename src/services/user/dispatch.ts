@@ -1,5 +1,6 @@
 import { DispatchFactoryHandlerUser } from "./dispatchFactoryUser";
 
+
 export class DispatchController {
     private handlers: Map<string, DispatchFactoryHandlerUser> = new Map();
 
