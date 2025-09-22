@@ -1,4 +1,5 @@
 import { DispatchFactoryHandlerUser } from "./dispatchFactoryUser";
+import { DispatcherNotHandlerUser } from "./UserSpecialCase/userSpecialCaseDispatcher";
 
 
 export class DispatchController {
@@ -11,7 +12,7 @@ export class DispatchController {
     async getHandler(context, key: string): Promise<any> {
         const command = this.handlers.get(key);
         if (!command) {
-            throw new Error(`Handler not found for key: ${key}`);
+            return new DispatcherNotHandlerUser().handleUserDispatch(context)
         }
         return command.handleUserDispatch(context);
     }

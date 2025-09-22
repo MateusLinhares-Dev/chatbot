@@ -1,3 +1,5 @@
+import { NotifyError } from "../../domain/error/NotifyError";
+import { DispatcherNotifyNotLocalized } from "./BotSpecialCase/botSpecialCaseNotify";
 import { NotifyHandler } from "./notifyHandler";
 
 export class DispatcherNotify {
@@ -10,13 +12,13 @@ export class DispatcherNotify {
     async getHandler(key: string): Promise<NotifyHandler> {
         const command = this.handlers.get(key);
         if (!command) {
-            throw new Error(`No handler registered for key: ${key}`);
+            return new DispatcherNotifyNotLocalized()
         }
 
         try {
             return command
         } catch (error) {
-            throw new Error(`Failed to process notification for key: ${key}`);
+            throw new NotifyError(`Failed to process notification for key: ${key}`, error as Error);
         }
     }
 }

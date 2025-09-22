@@ -15,10 +15,6 @@ export class DispatcherHandlerUser extends DispatchFactoryHandlerUser {
 
         const user = await UserService.getValidateUser(context);
 
-        if (!user) {
-            throw new Error("Este usuário não possui e-mail.");
-        }
-
         profile.email = user.email;
         profile.name = user.name;
         profile.conversationReference = TurnContext.getConversationReference(context.activity);

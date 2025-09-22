@@ -1,10 +1,11 @@
 import { BlobServiceClient } from "@azure/storage-blob";
 import { env } from "../env";
-import { interfaceInfoReqNotify } from "../../dto/interfaceInfoRequestNotify";
-import { normalizeRequestBody } from "../user/useNormalizeRequestBody";
 import { ZodValidationReferenceUser } from "../../dto/validation/zodValidationReference";
+import { defaultInterfaceInfoReqNotify } from "../../dto/validation/zodInfoReqNotify";
+import { normalizeReferenceBody } from "../user/useNormalizeReferenceUser";
+import { ProfileDataError } from "../../domain/error/ProfileDataError";
 
-export async function findUserReference(user: interfaceInfoReqNotify): Promise<null> {
+export async function findUserReference(user: defaultInterfaceInfoReqNotify): Promise<null> {
     const blobServiceClient = BlobServiceClient.fromConnectionString(env.BlobConnectionString);
     const containerCliente = blobServiceClient.getContainerClient(env.BlobContainerName);
 
@@ -15,14 +16,14 @@ export async function findUserReference(user: interfaceInfoReqNotify): Promise<n
         const content = await streamToString(download.readableStreamBody);
         const profile = JSON.parse(content);
 
-        const normalizeProfile = normalizeRequestBody(profile.UserProfile)
+        const normalizeProfile = normalizeReferenceBody(profile)
         
-        if ((user.email && normalizeProfile.email === user.email) || (user.name && normalizeProfile.name === user.name)) {
+        if ((user.email && normalizeProfile.UserProfile.email === user.email) || (user.name && normalizeProfile.UserProfile.name === user.name)) {
             try {
                 ZodValidationReferenceUser.parse(profile);
                 return profile;
             } catch (err) {
-                throw new Error("Profile data is invalid");
+                throw new ProfileDataError('Profile data is invalid', err as Error)
             }
         }
     }

@@ -4,8 +4,9 @@ const mappingRules: Record<string, keyof defaultInterfaceInfoReqNotify> = {
   "${creator.name}": "name",
   "@{variables('numeroSolicitud')}": "numberRequested",
   "@{variables('fechaInializacion')}": "initiation",
-  "@{variables('fechaFinalizacion')}": "initiation",
+  "@{variables('fechaFinalizacion')}": "planning",
   "@{variables('cambioDescripcion')}": "description",
+  "@{variables('numeroTarea')}": "numberTask"
 };
 
 function escapeRegExp(s: string) {

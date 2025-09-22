@@ -7,6 +7,8 @@ export const defaultInterfaceInfoReqNotify = z.object({
     initiation: z.string().min(1, 'initiation required'),
     description: z.string().optional(),
     planning: z.string().min(1, 'planning required'),
+    numberTask: z.string().optional(),
+    stateRequest: z.string().optional(),
 })
 
 export type defaultInterfaceInfoReqNotify = z.infer<typeof defaultInterfaceInfoReqNotify>;

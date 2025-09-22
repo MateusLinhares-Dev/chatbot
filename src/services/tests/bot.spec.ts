@@ -56,6 +56,6 @@ describe("Echobot", () => {
             new Error('Este usuário não possui e-mail')
         )
 
-        await expect(bot.run(context)).rejects.toThrow('Este usuário não possui e-mail');
+        await expect(bot.run(context)).rejects.toThrow('Error invalid user!');
     })
 })

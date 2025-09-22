@@ -1,10 +1,11 @@
+import { TimeStampError } from "../../domain/error/TimeStampError";
 import { defaultInterfaceInfoReqNotify } from "../../dto/validation/zodInfoReqNotify";
 
 function convertTimeStampForDate(timestamp: string): string {
   const date = new Date(Number(timestamp));
-  console.log(date)
+
   if (isNaN(date.getTime())) {
-    throw new Error(`Timestamp inválido: ${timestamp}`);
+    throw new TimeStampError(`Timestamp inválido: ${timestamp}`);
   }
 
   return date.toISOString();
@@ -13,6 +14,7 @@ function convertTimeStampForDate(timestamp: string): string {
 export function normalizeRequestBody(
   req: defaultInterfaceInfoReqNotify
 ): defaultInterfaceInfoReqNotify {
+
   return {
     ...req,
     initiation: convertTimeStampForDate(req.initiation),

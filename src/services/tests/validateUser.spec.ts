@@ -1,8 +1,8 @@
 import { expect, test, vi } from "vitest";
 import { ActivityTypes, TeamsInfo, TurnContext } from "botbuilder";
 import { UserService } from "../user/userService";
-import { parse } from "dotenv";
-
+import { UserDataError } from "../../domain/error/UserError";
+import z from "zod";
 
 test('validate if user contain register with blob, if contain return info then user', async () => {
     const mockUserProfile = {
@@ -40,7 +40,7 @@ test('validate if user contain register with blob, if contain return info then u
     expect(parseSchemaUser).toEqual(mockUserProfile);
 });
 
-test('validate if user not contain register with blob, if not contain return False', async () => {
+test('validate if user not contain register with blob, if not contain return Exception UserDataError', async () => {
     const sendActivityMock = vi.fn();
     const context = new TurnContext(
                 {
@@ -66,7 +66,7 @@ test('validate if user not contain register with blob, if not contain return Fal
         return { id: "user1", name: "Mateus" }
     });
 
-    const parseSchemaUser = await UserService.getValidateUser(context);
-    await expect(parseSchemaUser).toBe(false);
+    await expect(UserService.getValidateUser(context)).rejects
+        .toThrow(z.ZodError);
 
 });

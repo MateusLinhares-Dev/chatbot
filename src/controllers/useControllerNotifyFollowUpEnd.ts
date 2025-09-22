@@ -1,32 +1,32 @@
 import { TurnContext } from "botbuilder";
-import { adapter } from "../services/bot/botbuilder";
 import { Request, Response } from "express";
+import { adapter } from "../services/bot/botbuilder";
 import { env } from "../services/env";
+import { BodyRequest } from "../dto/validation/zodBodyReqNotify";
 import { DispatcherNotify } from "../services/bot/dipatcherNotify";
 import { DispatcherNotifyFollowUp } from "../services/bot/handlers/dispatcherNotify";
-import { BodyRequest } from "../dto/validation/zodBodyReqNotify";
-import { NotifyFollowUpCardStart } from "../domain/notify/notifyFollowUpStart";
+import { NotifyFollowUpCardEnd } from "../domain/notify/notifyFollowUpEnd";
 
 const dispatch = new DispatcherNotify()
-const notifyFollowUpCardStart = new NotifyFollowUpCardStart()
-dispatch.registerHandler("followUpStart", new DispatcherNotifyFollowUp(notifyFollowUpCardStart))
+const notifyFollowUpCardEnd = new NotifyFollowUpCardEnd()
+dispatch.registerHandler("followUpEnd", new DispatcherNotifyFollowUp(notifyFollowUpCardEnd))
 
-export const NotifyFollowUpStart = async (
+export const NotifyFollowUpEnd = async (
     req: Request<{}, {}, BodyRequest>, 
     res: Response) => {
-    try {
+
+    try{
         const {dataNormalizeUser, profile } = req.body
 
         await adapter.continueConversationAsync(
-            env.MicrosoftAppId!,    
-            profile.UserProfile.conversationReference,       
+            env.MicrosoftAppId!,
+            profile.UserProfile.conversationReference,
             async (turnContext: TurnContext) => {
-                const handler = await dispatch.getHandler("followUpStart");
+                const handler = await dispatch.getHandler("followUpEnd");
                 handler.setData(dataNormalizeUser);
                 await handler.handleNotify(turnContext);
             }
-        );
-        
+        )
         res.status(200).json({
             message: "Notificação processada com sucesso",
         });
@@ -38,4 +38,4 @@ export const NotifyFollowUpStart = async (
     }
 }
 
-// TODO: Verificar se o tipo de retorno do continueConversationAsync está correto e criar o card para notificação proativa
+// Todo: Verificar se o tipo de retorno do continueConversationAsync está correto e criar o card para notificação proativa E implementar o handler do followUpEnd

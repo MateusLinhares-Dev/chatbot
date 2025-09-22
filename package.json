@@ -6,7 +6,7 @@
     "license": "MIT",
     "main": "./src/index.ts",
     "scripts": {
-        "dev": "tsx --env-file=.env --watch --trace-deprecation src/index.ts",
+        "dev": "tsx --watch --env-file=.env --trace-deprecation src/index.ts",
         "test": "vitest",
         "coverage": "vitest run --coverage"
     },
