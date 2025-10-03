@@ -1,9 +1,9 @@
 import { BlobServiceClient } from "@azure/storage-blob";
-import { env } from "../env";
-import { ZodValidationReferenceUser } from "../../dto/validation/zodValidationReference";
-import { defaultInterfaceInfoReqNotify } from "../../dto/validation/zodInfoReqNotify";
-import { normalizeReferenceBody } from "../user/useNormalizeReferenceUser";
-import { ProfileDataError } from "../../domain/error/ProfileDataError";
+import { env } from "../env.js";
+import { ZodValidationReferenceUser } from "../../dto/validation/zodValidationReference.js";
+import { defaultInterfaceInfoReqNotify } from "../../dto/validation/zodInfoReqNotify.js";
+import { normalizeReferenceBody } from "../user/useNormalizeReferenceUser.js";
+import { ProfileDataError } from "../../domain/error/ProfileDataError.js";
 
 export async function findUserReference(user: defaultInterfaceInfoReqNotify): Promise<null> {
     const blobServiceClient = BlobServiceClient.fromConnectionString(env.BlobConnectionString);
@@ -15,7 +15,6 @@ export async function findUserReference(user: defaultInterfaceInfoReqNotify): Pr
         const download = await blockBlobClient.download(0);
         const content = await streamToString(download.readableStreamBody);
         const profile = JSON.parse(content);
-
         const normalizeProfile = normalizeReferenceBody(profile)
         
         if ((user.email && normalizeProfile.UserProfile.email === user.email) || (user.name && normalizeProfile.UserProfile.name === user.name)) {

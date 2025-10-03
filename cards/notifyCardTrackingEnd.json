@@ -82,7 +82,9 @@
             "title": "Ya se finalizó la tarea",
             "id": "1",
             "data": {
-                "actions": "Informo"
+                "actions": "Informo",
+                "workflowId": "{{workflowId}}",
+                "registrationUser": "{{registrationUser}}"
             }
         }
     ],

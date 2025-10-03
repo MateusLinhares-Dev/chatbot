@@ -1,15 +1,17 @@
 import { Request, Response } from "express";
-import { BodyRequest } from "../dto/validation/zodBodyReqNotify";
-import { adapter } from "../services/bot/botbuilder";
+import { BodyRequest } from "../dto/validation/zodBodyReqNotify.js";
+import { adapter } from "../services/bot/botbuilder.js";
 import { TurnContext } from "botbuilder";
-import { DispatcherNotify } from "../services/bot/dipatcherNotify";
-import { DispatcherNotifyFollowUp } from "../services/bot/handlers/dispatcherNotify";
-import { env } from "../services/env";
-import { NotifyTrackingCardEnd } from "../domain/notify/notifyTrackingEnd";
+import { DispatcherNotify } from "../services/bot/dipatcherNotify.js";
+import { DispatcherNotifyFollowUp } from "../services/bot/handlers/dispatcherNotify.js";
+import { env } from "../services/env.js";
+import { NotifyTrackingCardEnd } from "../domain/notify/notifyTrackingEnd.js";
+import { requestApproval } from "../services/redis/approvalService.js";
+import { NotifyCard } from "../domain/notify/abstract/notifyCard.js";
 
 const dispatch = new DispatcherNotify()
 const notifyCardTrackingEnd = new NotifyTrackingCardEnd()
-dispatch.registerHandler("TrackingEnd", new DispatcherNotifyFollowUp(notifyCardTrackingEnd))
+dispatch.registerHandler("TrackingEnd", new DispatcherNotifyFollowUp(notifyCardTrackingEnd as NotifyCard))
 
 export const NotifyTrackingEnd = async (
     req: Request<{}, {}, BodyRequest>, 
@@ -17,6 +19,7 @@ export const NotifyTrackingEnd = async (
 
     try {
         const {dataNormalizeUser, profile } = req.body
+
         await adapter.continueConversationAsync(
                     env.MicrosoftAppId!,
                     profile.UserProfile.conversationReference,
@@ -26,6 +29,12 @@ export const NotifyTrackingEnd = async (
                         await handler.handleNotify(turnContext);
                     }
                 )
+   
+        await requestApproval(
+            dataNormalizeUser.registrationUser,
+            profile.UserProfile.conversationReference
+        );
+
         res.status(200).json({
             message: "Notificação processada com sucesso",
         });

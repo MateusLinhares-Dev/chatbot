@@ -1,0 +1,21 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:workflow">
+<soapenv:Header/>
+<soapenv:Body>
+      <urn:editChildEntityRecord>
+            <urn:WorkflowID>{{WORKFLOW_ID}}</urn:WorkflowID>
+            <urn:MainEntityID>solcambiomain</urn:MainEntityID>
+            <urn:ChildRelationshipID>relactividades</urn:ChildRelationshipID>
+            <urn:ChildRecordOID>{{workflowOid}}</urn:ChildRecordOID>
+      <urn:EntityAttributeList>
+            <urn:EntityAttribute>
+                  <urn:EntityAttributeID>tipo</urn:EntityAttributeID>
+                  <urn:EntityAttributeValue>nueva</urn:EntityAttributeValue>
+            </urn:EntityAttribute>
+            <urn:EntityAttribute>
+                  <urn:EntityAttributeID>respuesta</urn:EntityAttributeID>
+                  <urn:EntityAttributeValue>1</urn:EntityAttributeValue>
+            </urn:EntityAttribute>
+      </urn:EntityAttributeList>
+      </urn:editChildEntityRecord>
+</soapenv:Body>
+</soapenv:Envelope>

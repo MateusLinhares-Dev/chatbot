@@ -1,11 +1,11 @@
 import express from 'express';
-import { MessageWebhookTeams } from '../controllers/useControllerMessages'
-import { NotifyFollowUpStart } from '../controllers/useControllerNotifyFollowUpStart';
-import { validate } from '../services/middleware/middlewareValidateUserReq';
-import { defaultInterfaceInfoReqNotify } from '../dto/validation/zodInfoReqNotify';
-import { NotifyFollowUpEnd } from '../controllers/useControllerNotifyFollowUpEnd';
-import { NotifyTrackingStart } from '../controllers/useControllerNotifyTrackingStart';
-import { NotifyTrackingEnd } from '../controllers/useControllerActionTrackingEnd';
+import { MessageWebhookTeams } from '../controllers/useControllerMessages.js'
+import { NotifyFollowUpStart } from '../controllers/useControllerNotifyFollowUpStart.js';
+import { validate } from '../services/middleware/middlewareValidateUserReq.js';
+import { defaultInterfaceInfoReqNotify } from '../dto/validation/zodInfoReqNotify.js';
+import { NotifyFollowUpEnd } from '../controllers/useControllerNotifyFollowUpEnd.js';
+import { NotifyTrackingStart } from '../controllers/useControllerNotifyTrackingStart.js';
+import { NotifyTrackingEnd } from '../controllers/useControllerActionTrackingEnd.js';
 
 const router = express.Router()
 

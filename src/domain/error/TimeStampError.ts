@@ -1,4 +1,4 @@
-import { DomainError } from "./DomainError";
+import { DomainError } from "./DomainError.js";
 
 export class TimeStampError extends DomainError {
     public readonly cause?: Error;

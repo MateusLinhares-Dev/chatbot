@@ -1,8 +1,10 @@
-import { ActivityHandler, ConversationState, TurnContext, UserState, StatePropertyAccessor, InvokeResponse } from 'botbuilder';
-import { userStateInfo } from '../../dto/interfaceInfoUserState';
-import { DispatcherHandlerUser } from '../user/handlers/dispatcherUser';
-import { DispatchController } from '../user/dispatch';
-import { UserDataError } from "../../domain/error/UserError";
+import { ActivityHandler, ConversationState, TurnContext, UserState, StatePropertyAccessor } from 'botbuilder';
+import { userStateInfo } from '../../dto/interfaceInfoUserState.js';
+import { DispatcherHandlerUser } from '../user/handlers/dispatcherUser.js';
+import { DispatchController } from '../user/dispatch.js';
+import { UserDataError } from "../../domain/error/UserError.js";
+import { ExecuteApiError } from '../../domain/error/RequestApiSoapError.js';
+import { GetOidForEntityRecordAndModifyFieldRespuestaWithApi } from '../redis/approvalService.js';
 
 export class EchoBot extends ActivityHandler {
     private UserState: UserState;
@@ -20,28 +22,40 @@ export class EchoBot extends ActivityHandler {
         this.dispatcher.registerHandler('user', new DispatcherHandlerUser(this.userProfileAccessor));
 
         this.onMessage(async (context, next) => {
-            console.log(context.activity)
             try {
                 const profile = await this.dispatcher.getHandler(context, 'user');
                 await context.sendActivity(`Olá ${profile.name}`);
             } catch (err: any) {
-                throw new UserDataError('Error invalid user!', err as Error);
+                console.log(err)
+                throw new UserDataError(`Error invalid user: ${err}`, err as Error);
             }
 
             await next();
         });
 
         this.onInvokeActivity = async (context) => {
-            if (context.activity.name === 'adaptiveCard/action') {
-                const actionData = context.activity.value?.action?.data;
-                if (actionData?.actions === "Informo") {
-                    await context.sendActivity("✅ Tarefa marcada como finalizada!");
+            try {
+                if (context.activity.name === 'adaptiveCard/action') {
+                    const actionData = context.activity.value?.action?.data;
+                    if (actionData?.actions === "Informo") {
+                        const workflowId = actionData.workflowId
+                        const registrationUser = actionData.registrationUser
+
+                        await GetOidForEntityRecordAndModifyFieldRespuestaWithApi(registrationUser, workflowId) 
+                        
+                        await context.sendActivity("✅ Tarefa marcada como finalizada!");
+                    }
+
+                    return { status: 200 };
                 }
 
                 return { status: 200 };
+            } catch (error) {
+                throw new ExecuteApiError(
+                    `Error ao registrar ação do usuário, ${error}`, 
+                    error as Error
+                );
             }
-
-            return { status: 200 };
         };
     }
 

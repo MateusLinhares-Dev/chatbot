@@ -1,6 +1,6 @@
 import { TurnContext } from "botbuilder";
-import { NotifyHandler } from "../notifyHandler";
-import { NotifyError } from "../../../domain/error/NotifyError";
+import { NotifyHandler } from "../notifyHandler.js";
+import { NotifyError } from "../../../domain/error/NotifyError.js";
 
 export class DispatcherNotifyNotLocalized extends NotifyHandler {
     constructor() {

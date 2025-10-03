@@ -1,9 +1,9 @@
 import { TurnContext } from "botbuilder";
-import { NotifyHandler } from "../notifyHandler";
-import { getNotifyCardFollowUpStart } from "../../notification/getNotifyFollowUpStart";
-import { editNotificationCard } from "../../notification/editCardNotify";
-import { CardEditError } from "../../../domain/error/CardErrorEdit";
-import { NotifyCard } from "../../../domain/notify/abstract/notifyCard";
+import { NotifyHandler } from "../notifyHandler.js";
+import { getNotifyCardFollowUpStart } from "../../notification/getNotifyFollowUpStart.js";
+import { editNotificationCard } from "../../notification/editCardNotify.js";
+import { CardEditError } from "../../../domain/error/CardErrorEdit.js";
+import { NotifyCard } from "../../../domain/notify/abstract/notifyCard.js";
 
 export class DispatcherNotifyFollowUp extends NotifyHandler {
     private notifyAdapter: NotifyCard
@@ -28,7 +28,6 @@ export class DispatcherNotifyFollowUp extends NotifyHandler {
                 attachments: [adaptiveCardAttachment],
             });
         } catch (error) {
-            console.log(error)
             throw new CardEditError("Error in adapter card!", error as Error)
         }
     }

@@ -1,8 +1,8 @@
-import { EchoBot } from '../services/bot/bot'
+import { EchoBot } from '../services/bot/bot.js'
 import { INodeSocket } from 'botframework-streaming';
-import { streamingAdapter } from '../services/bot/botbuilder'
-import { BlobStateFactory } from '../data/blobstorage';
-import { env } from '../services/env';
+import { streamingAdapter } from '../services/bot/botbuilder.js'
+import { BlobStateFactory } from '../data/blobstorage.js';
+import { env } from '../services/env.js';
 
 const storage = new BlobStateFactory(env.BlobConnectionString, env.BlobContainerName)
                     .withCreateStorage()

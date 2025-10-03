@@ -1,6 +1,6 @@
-import { NotifyError } from "../../domain/error/NotifyError";
-import { DispatcherNotifyNotLocalized } from "./BotSpecialCase/botSpecialCaseNotify";
-import { NotifyHandler } from "./notifyHandler";
+import { NotifyError } from "../../domain/error/NotifyError.js";
+import { DispatcherNotifyNotLocalized } from "./BotSpecialCase/botSpecialCaseNotify.js";
+import { NotifyHandler } from "./notifyHandler.js";
 
 export class DispatcherNotify {
     private handlers: Map<string, NotifyHandler> = new Map();

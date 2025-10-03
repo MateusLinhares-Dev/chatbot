@@ -1,5 +1,5 @@
-import { UserDataError } from "../../domain/error/UserError";
-import { ZodValidationReferenceUser } from "../../dto/validation/zodValidationReference";
+import { UserDataError } from "../../domain/error/UserError.js";
+import { ZodValidationReferenceUser } from "../../dto/validation/zodValidationReference.js";
 
 
 export function normalizeReferenceBody(
@@ -17,6 +17,6 @@ export function normalizeReferenceBody(
       
     return userProfile;
   } catch (err) {
-    throw new UserDataError("Reference body is incorrect", err as Error)
+    throw new UserDataError("A referência dos dados estão incorretos!", err as Error)
   }
 }

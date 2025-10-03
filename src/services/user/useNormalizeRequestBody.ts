@@ -1,14 +1,20 @@
-import { TimeStampError } from "../../domain/error/TimeStampError";
-import { defaultInterfaceInfoReqNotify } from "../../dto/validation/zodInfoReqNotify";
+import { defaultInterfaceInfoReqNotify } from "../../dto/validation/zodInfoReqNotify.js";
 
 function convertTimeStampForDate(timestamp: string): string {
   const date = new Date(Number(timestamp));
 
   if (isNaN(date.getTime())) {
-    throw new TimeStampError(`Timestamp inválido: ${timestamp}`);
+    throw new Error(`Timestamp inválido: ${timestamp}`);
   }
 
-  return date.toISOString();
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
+
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+
+  return `${day}/${month}/${year} ${hours}:${minutes}`;
 }
 
 export function normalizeRequestBody(

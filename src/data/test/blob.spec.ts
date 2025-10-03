@@ -1,7 +1,7 @@
 import { expect, test } from 'vitest'
-import { BlobStateFactory } from '../blobstorage'
+import { BlobStateFactory } from '../blobstorage.js'
 import { BlobsStorage } from 'botbuilder-azure-blobs'
-import { env } from '../../services/env'
+import { env } from '../../services/env.js'
 import { ConversationState, UserState } from 'botbuilder'
 
 const stringBlob = env.BlobConnectionString

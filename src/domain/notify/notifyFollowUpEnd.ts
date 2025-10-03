@@ -1,4 +1,4 @@
-import { NotifyCard } from "./abstract/notifyCard";
+import { NotifyCard } from "./abstract/notifyCard.js";
 
 export class NotifyFollowUpCardEnd extends NotifyCard {
     constructor() {

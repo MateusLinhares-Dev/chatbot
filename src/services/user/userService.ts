@@ -1,6 +1,6 @@
 import { TeamsInfo, TurnContext } from "botbuilder";
-import { UserValidator } from "./validateUser";
-import { userStateInfo } from "../../dto/interfaceInfoUserState";
+import { UserValidator } from "./validateUser.js";
+import { userStateInfo } from "../../dto/interfaceInfoUserState.js";
 
 export class UserService {
     static async getValidateUser(context: TurnContext): Promise<userStateInfo> {

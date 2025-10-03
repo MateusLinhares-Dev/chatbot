@@ -1,6 +1,6 @@
 import { BlobsStorage } from "botbuilder-azure-blobs";
 import { UserState, ConversationState, Storage } from "botbuilder";
-import { StateFactory  } from "./interface/interfaceBlobStorage";
+import { StateFactory  } from "./interface/interfaceBlobStorage.js";
 
 export class BlobStateFactory extends StateFactory {
     private blobConnectionString: string;

@@ -1,5 +1,5 @@
 export interface userStateInfo {
-    id: string;
+    id?: string;
     name?: string;
     email?: string;
     conversationReference?: Partial<import("botbuilder").ConversationReference>;

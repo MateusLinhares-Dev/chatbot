@@ -3,11 +3,13 @@ import {
     ConfigurationServiceClientCredentialFactory,
     createBotFrameworkAuthenticationFromConfiguration
 } from 'botbuilder';
-import { env } from '../env'
+import { env } from '../env.js'
 
 const credentialsFactory = new ConfigurationServiceClientCredentialFactory({
     MicrosoftAppId: env.MicrosoftAppId,
-    MicrosoftAppPassword: env.MicrosoftAppPassword
+    MicrosoftAppPassword: env.MicrosoftAppPassword,
+    MicrosoftAppTenantId: env.MicrosoftAppTenantId,
+    MicrosoftAppType: "SingleTenant"
 });
 
 const botFrameworkAuthentication = createBotFrameworkAuthenticationFromConfiguration(null, credentialsFactory);
@@ -16,7 +18,23 @@ const adapter = new CloudAdapter(botFrameworkAuthentication);
 const streamingAdapter = new CloudAdapter(botFrameworkAuthentication)
 
 const onTurnErrorHandler = async (context, error) => {
-    console.error(`\n [onTurnError] unhandled error: ${ error }`);
+    console.error(`\n [onTurnError] unhandled error:`, error);
+
+    const restError = (error.cause ?? error);
+
+    if (restError?.request?.headers?.authorization) {
+        console.log("Authorization header:", restError.request.headers.authorization);
+    } else {
+        console.log("Authorization header not found. Full request dump:", JSON.stringify(restError?.request, null, 2));
+    }
+
+    if (restError?.response) {
+        console.log("Response dump:", {
+            status: restError.response.status,
+            headers: restError.response.headers,
+            body: restError.response.bodyAsText
+        });
+    }
 
     await context.sendTraceActivity(
         'OnTurnError Trace',
@@ -25,8 +43,7 @@ const onTurnErrorHandler = async (context, error) => {
         'TurnError'
     );
 
-    await context.sendActivity('The bot encountered an error or bug.');
-    await context.sendActivity('To continue to run this bot, please fix the bot source code.');
+    await context.sendActivity('❌ O bot encontrou um erro de autenticação.');
 };
 
 adapter.onTurnError = onTurnErrorHandler;

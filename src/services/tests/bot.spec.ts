@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { EchoBot } from "../bot/bot";
+import { EchoBot } from "../bot/bot.js";
 import { ActivityTypes, ConversationState, MemoryStorage, TeamsInfo, TurnContext, UserState } from "botbuilder";
 
 
@@ -16,7 +16,7 @@ describe("Echobot", () => {
         bot = new EchoBot(userState, conversationState)
 
         sendActivityMock = vi.fn()
-        // MOCK DOS DADOS DO CONTEXT DO BOT.
+
         context = new TurnContext(
             {
                 sendActivities: async (_ctx, activities) => {
@@ -56,6 +56,6 @@ describe("Echobot", () => {
             new Error('Este usuário não possui e-mail')
         )
 
-        await expect(bot.run(context)).rejects.toThrow('Error invalid user!');
+        await expect(bot.run(context)).rejects.toThrow('Error invalid user: Error: Este usuário não possui e-mail');
     })
 })

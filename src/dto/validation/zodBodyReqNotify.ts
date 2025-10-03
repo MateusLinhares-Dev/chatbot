@@ -1,6 +1,6 @@
 import z from "zod";
-import { defaultInterfaceInfoReqNotify } from "./zodInfoReqNotify";
-import { ZodValidationReferenceUser } from "./zodValidationReference";
+import { defaultInterfaceInfoReqNotify } from "./zodInfoReqNotify.js";
+import { ZodValidationReferenceUser } from "./zodValidationReference.js";
 
 const bodySchema = z.object({
   dataNormalizeUser: defaultInterfaceInfoReqNotify,

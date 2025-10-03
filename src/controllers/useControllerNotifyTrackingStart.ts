@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { BodyRequest } from "../dto/validation/zodBodyReqNotify";
-import { adapter } from "../services/bot/botbuilder";
-import { env } from "../services/env";
+import { BodyRequest } from "../dto/validation/zodBodyReqNotify.js";
+import { adapter } from "../services/bot/botbuilder.js";
+import { env } from "../services/env.js";
 import { TurnContext } from "botbuilder";
-import { DispatcherNotify } from "../services/bot/dipatcherNotify";
-import { DispatcherNotifyFollowUp } from "../services/bot/handlers/dispatcherNotify";
-import { NotifyTrackingCardStart } from "../domain/notify/notifyTrackingStart";
+import { DispatcherNotify } from "../services/bot/dipatcherNotify.js";
+import { DispatcherNotifyFollowUp } from "../services/bot/handlers/dispatcherNotify.js";
+import { NotifyTrackingCardStart } from "../domain/notify/notifyTrackingStart.js";
 
 const dispatch = new DispatcherNotify()
 const notifyTrackingCardStart = new NotifyTrackingCardStart()

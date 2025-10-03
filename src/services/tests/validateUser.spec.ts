@@ -1,7 +1,7 @@
 import { expect, test, vi } from "vitest";
 import { ActivityTypes, TeamsInfo, TurnContext } from "botbuilder";
-import { UserService } from "../user/userService";
-import { UserDataError } from "../../domain/error/UserError";
+import { UserService } from "../user/userService.js";
+
 import z from "zod";
 
 test('validate if user contain register with blob, if contain return info then user', async () => {

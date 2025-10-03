@@ -1,5 +1,5 @@
-import { userStateInfo } from "../../dto/interfaceInfoUserState";
-import { CreateUserSchema } from "../../dto/validation/zodValidationFieldsUser";
+import { userStateInfo } from "../../dto/interfaceInfoUserState.js";
+import { CreateUserSchema } from "../../dto/validation/zodValidationFieldsUser.js";
 
 export class UserValidator {
     static validate(userData: any): userStateInfo {

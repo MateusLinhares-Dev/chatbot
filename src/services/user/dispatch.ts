@@ -1,5 +1,5 @@
-import { DispatchFactoryHandlerUser } from "./dispatchFactoryUser";
-import { DispatcherNotHandlerUser } from "./UserSpecialCase/userSpecialCaseDispatcher";
+import { DispatchFactoryHandlerUser } from "./dispatchFactoryUser.js";
+import { DispatcherNotHandlerUser } from "./UserSpecialCase/userSpecialCaseDispatcher.js";
 
 
 export class DispatchController {

@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { normalizeReferenceBody } from "../user/useNormalizeReferenceUser";
-import { UserDataError } from "../../domain/error/UserError";
+import { normalizeReferenceBody } from "../user/useNormalizeReferenceUser.js";
+import { UserDataError } from "../../domain/error/UserError.js";
 
 describe("NormalizeReqReference", () => {
     let contextReferenceUser: any;

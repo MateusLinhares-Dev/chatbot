@@ -1,4 +1,4 @@
-import { DomainError } from "./DomainError";
+import { DomainError } from "./DomainError.js";
 
 export class NotifyError extends DomainError {
     public readonly cause?: Error;

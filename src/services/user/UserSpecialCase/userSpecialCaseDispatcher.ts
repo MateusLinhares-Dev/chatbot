@@ -1,6 +1,6 @@
 import { TurnContext } from "botbuilder";
-import { DispatchFactoryHandlerUser } from "../dispatchFactoryUser";
-import { UserDataError } from "../../../domain/error/UserError";
+import { DispatchFactoryHandlerUser } from "../dispatchFactoryUser.js";
+import { UserDataError } from "../../../domain/error/UserError.js";
 
 export class DispatcherNotHandlerUser extends DispatchFactoryHandlerUser {
     constructor() {super();}

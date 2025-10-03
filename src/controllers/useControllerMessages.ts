@@ -1,7 +1,7 @@
-import { BlobStateFactory } from '../data/blobstorage'
-import { EchoBot } from '../services/bot/bot'
-import { adapter } from '../services/bot/botbuilder'
-import { env } from '../services/env'
+import { BlobStateFactory } from '../data/blobstorage.js'
+import { EchoBot } from '../services/bot/bot.js'
+import { adapter } from '../services/bot/botbuilder.js'
+import { env } from '../services/env.js'
 
 const storage = new BlobStateFactory(env.BlobConnectionString, env.BlobContainerName)
                     .withCreateStorage()

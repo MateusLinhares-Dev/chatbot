@@ -1,11 +1,11 @@
 import { TurnContext } from "botbuilder";
-import { adapter } from "../services/bot/botbuilder";
+import { adapter } from "../services/bot/botbuilder.js";
 import { Request, Response } from "express";
-import { env } from "../services/env";
-import { DispatcherNotify } from "../services/bot/dipatcherNotify";
-import { DispatcherNotifyFollowUp } from "../services/bot/handlers/dispatcherNotify";
-import { BodyRequest } from "../dto/validation/zodBodyReqNotify";
-import { NotifyFollowUpCardStart } from "../domain/notify/notifyFollowUpStart";
+import { env } from "../services/env.js";
+import { DispatcherNotify } from "../services/bot/dipatcherNotify.js";
+import { DispatcherNotifyFollowUp } from "../services/bot/handlers/dispatcherNotify.js";
+import { BodyRequest } from "../dto/validation/zodBodyReqNotify.js";
+import { NotifyFollowUpCardStart } from "../domain/notify/notifyFollowUpStart.js";
 
 const dispatch = new DispatcherNotify()
 const notifyFollowUpCardStart = new NotifyFollowUpCardStart()

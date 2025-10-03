@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { DispatchController } from "../user/dispatch";
-import { DispatcherHandlerUser } from "../user/handlers/dispatcherUser";
+import { DispatchController } from "../user/dispatch.js";
+import { DispatcherHandlerUser } from "../user/handlers/dispatcherUser.js";
 import { ActivityTypes, MemoryStorage, StatePropertyAccessor, TeamsInfo, TurnContext, UserState } from "botbuilder";
-import { userStateInfo } from "../../dto/interfaceInfoUserState";
+import { userStateInfo } from "../../dto/interfaceInfoUserState.js";
 
 describe("Test the adapter functionality", () => {
     let dispatch: DispatchController;

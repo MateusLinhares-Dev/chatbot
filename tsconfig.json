@@ -1,12 +1,9 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "target": "es2023",
-    "module": "commonjs",
-    // "outDir": "./lib",
-    // "rootDir": "./src",
-    "sourceMap": true,
-    "incremental": true,
-    // "tsBuildInfoFile": "./lib/.tsbuildinfo"
+    "target": "es2020",         // ou es2022
+    "module": "nodenext",       // ou esnext
+    "moduleResolution": "nodenext", 
+    "esModuleInterop": true,
+    "skipLibCheck": true
   }
 }

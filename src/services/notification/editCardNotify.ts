@@ -1,4 +1,4 @@
-import { defaultInterfaceInfoReqNotify } from "../../dto/validation/zodInfoReqNotify";
+import { defaultInterfaceInfoReqNotify } from "../../dto/validation/zodInfoReqNotify.js";
 
 const mappingRules: Record<string, keyof defaultInterfaceInfoReqNotify> = {
   "${creator.name}": "name",
@@ -6,7 +6,9 @@ const mappingRules: Record<string, keyof defaultInterfaceInfoReqNotify> = {
   "@{variables('fechaInializacion')}": "initiation",
   "@{variables('fechaFinalizacion')}": "planning",
   "@{variables('cambioDescripcion')}": "description",
-  "@{variables('numeroTarea')}": "numberTask"
+  "@{variables('numeroTarea')}": "numberTask",
+  "{{workflowId}}": "workflowId",
+  "{{registrationUser}}": "registrationUser"
 };
 
 function escapeRegExp(s: string) {
@@ -44,6 +46,19 @@ export const editNotificationCard = (card: any, data: defaultInterfaceInfoReqNot
       }
       return element;
     }),
+    actions: card.actions ? card.actions.map((element:any) => {
+      if(element.type === "Action.Execute" && element.data?.workflowId) {
+        return {
+          ...element, 
+          data: {
+            ...element.data,
+            registrationUser: replaceText(element.data.registrationUser, data),
+            workflowId: replaceText( element.data.workflowId, data),
+          },
+        };
+      }
+      return element;
+    }) : []
   };
   
   return updatedCard;
