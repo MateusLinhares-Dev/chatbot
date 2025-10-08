@@ -32,6 +32,8 @@ export const NotifyTrackingEnd = async (
    
         await requestApproval(
             dataNormalizeUser.registrationUser,
+            dataNormalizeUser.numberTask,
+            dataNormalizeUser.numberRequested,
             profile.UserProfile.conversationReference
         );
 

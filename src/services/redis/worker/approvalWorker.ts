@@ -6,7 +6,7 @@ import { adapter } from "../../bot/botbuilder.js";
 import { TurnContext } from "botbuilder";
 
 const MAX_ATTEMPTS = 5;
-const TTL_MS = 60 * 15 * 1000;
+const TTL_MS = 60 * 1 * 1000;
 
 const client = await getRedisClient();
 
@@ -28,7 +28,9 @@ export const approvalWorker = new Worker(
         conversationReference,
         async (turnContext: TurnContext) => {
             await turnContext.sendActivity(
-            "📢 *Recordatorio*: Por favor recuerde aprobar la solicitud haciendo clic en el botón de aprobación."
+            `📢 *Recordatorio* por favor recuerde confirmar la 
+            ejecución de la tarea haciendo clic en el botón de aprobación. 
+            Número de Tarea: ${data.numberTask} - Número Solicitud: ${data.numberRequested}`
           );
         }
       );
