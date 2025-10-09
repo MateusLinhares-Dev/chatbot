@@ -4,7 +4,7 @@ import ConnectApiSoap from "./connection/ConnectSoapApi.js"
 import fs from "fs"
 import path from "path"
 
-export const apiEntityRecord = async (idWorkflow: string, workflowOid: string): Promise<void> => {
+export const apiEntityRecord = async (idWorkflow: string, workflowOid: string): Promise<string> => {
     const connectSoap = new ConnectApiSoap(env.ApiKey)
 
     const __filename = fileURLToPath(import.meta.url)
@@ -16,6 +16,6 @@ export const apiEntityRecord = async (idWorkflow: string, workflowOid: string): 
             .replace("{{workflowOid}}", workflowOid)
 
     const response = await connectSoap.executeApiSoap(xml, "urn:workflow#editEntityRecord")
-    
-    console.log(response)
+
+    return response
 }

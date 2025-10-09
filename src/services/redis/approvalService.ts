@@ -4,8 +4,9 @@ import { approvalQueue } from "../../infrastructure/queue/approvalQueue.js";
 import { getRedisClient } from "../../infrastructure/redis/redisClient.js";
 import { WrapperExecuteGetOidForms } from "../api/rest/GetConsumerApiRestOid.js";
 import { apiEntityRecord } from "../api/soap/ApiEditEntityRecord.js";
+import { getSoapFailureDetail } from "../api/soap/parseXmlApi.js";
 
-const TTL_MS = 60 * 5 * 1000;
+const TTL_MS = 60 * 1 * 1000;
 const client = await getRedisClient();
 
 export async function requestApproval(
@@ -43,7 +44,12 @@ export async function GetOidForEntityRecordAndModifyFieldRespuestaWithApi(
   workflowId: string
 ) {
   const workflowOid = await WrapperExecuteGetOidForms(workflowId);
-  await apiEntityRecord(workflowId, workflowOid);
+  const response = await apiEntityRecord(workflowId, workflowOid);
+  const textContentSoap = getSoapFailureDetail(response)
+  
+  if((await textContentSoap).status !== "FAILURE") {
+    await client.hSet(`approval:${userId}`, { status: "approved" });
+  }
 
-  await client.hSet(`approval:${userId}`, { status: "approved" });
+  return (await textContentSoap).detailNode
 }

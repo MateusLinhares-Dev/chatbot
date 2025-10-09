@@ -41,9 +41,9 @@ export class EchoBot extends ActivityHandler {
                         const workflowId = actionData.workflowId
                         const registrationUser = actionData.registrationUser
 
-                        await GetOidForEntityRecordAndModifyFieldRespuestaWithApi(registrationUser, workflowId) 
+                        const detailRequest = await GetOidForEntityRecordAndModifyFieldRespuestaWithApi(registrationUser, workflowId) 
                         
-                        await context.sendActivity("✅ Tarefa marcada como finalizada!");
+                        await context.sendActivity(`Status Tarea: ${detailRequest}`);
                     }
 
                     return { status: 200 };

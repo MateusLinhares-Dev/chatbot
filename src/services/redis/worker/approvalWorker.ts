@@ -6,7 +6,7 @@ import { adapter } from "../../bot/botbuilder.js";
 import { TurnContext } from "botbuilder";
 
 const MAX_ATTEMPTS = 5;
-const TTL_MS = 60 * 1 * 1000;
+const TTL_MS = 60 * 5 * 1000;
 
 const client = await getRedisClient();
 
@@ -22,7 +22,7 @@ export const approvalWorker = new Worker(
 
     const conversationReference = JSON.parse(data.conversationReference);
 
-    if (attempt < MAX_ATTEMPTS) {
+    if (attempt <= MAX_ATTEMPTS) {
       await adapter.continueConversationAsync(
         env.MicrosoftAppId!,
         conversationReference,

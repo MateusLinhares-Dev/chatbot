@@ -19,7 +19,6 @@ export const NotifyTrackingEnd = async (
 
     try {
         const {dataNormalizeUser, profile } = req.body
-
         await adapter.continueConversationAsync(
                     env.MicrosoftAppId!,
                     profile.UserProfile.conversationReference,
@@ -29,7 +28,7 @@ export const NotifyTrackingEnd = async (
                         await handler.handleNotify(turnContext);
                     }
                 )
-   
+        
         await requestApproval(
             dataNormalizeUser.registrationUser,
             dataNormalizeUser.numberTask,

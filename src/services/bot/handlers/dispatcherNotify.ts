@@ -16,6 +16,7 @@ export class DispatcherNotifyFollowUp extends NotifyHandler {
     async handleNotify(context: TurnContext): Promise<void> {
         try{
             this.verifyIfDataNotIsNull()
+            console.log(this.data)
             const fileContent = await getNotifyCardFollowUpStart(this.notifyAdapter.getFileJson())
             const cardEdit = editNotificationCard(fileContent, this.data)
 
